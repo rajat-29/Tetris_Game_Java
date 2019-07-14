@@ -13,11 +13,9 @@ class Points
 
 class Version extends Points
 {
-	public int versionNo;
+	public int versionNo=1;
 	Version()
-	{
-
-	}
+	{}
 	Version(int versionNo)
 	{
 		this.versionNo = versionNo;
@@ -26,52 +24,203 @@ class Version extends Points
 	{
 		this.versionNo = versionNo;
 	}
+
+	public int getVersion()
+	{
+		return versionNo;
+	}
 }
 
-class Line extends Version
-{
+class Line extends Version {
 	Line()
 	{
-		xCod = new int[] {1,2,3,4};
-		yCod = new int[] {10,10,10,10};
+		Random r = new Random();
+		int ranNo = r.nextInt((25 - 5) + 1) + 5;
+		xCod = new int[] {4,5,6,7};
+		yCod = new int[] {ranNo,ranNo,ranNo,ranNo};
 	}
 
-	public void changeVersion(int verNo)
+	public void changeVersionAnticlock(int verNo)
 	{
 		super.changeVersion(verNo);
-		int tempCod;
-		for(int i=0;i<xCod.length;i++)
+
+		if(verNo == 1)
+		{	
+			for(int i=0;i<xCod.length;i++)
+			{
+				xCod[i] = xCod[0]+i;
+				yCod[i] = yCod[0];
+			}
+		}
+		else if(verNo == 2)
 		{
-			tempCod = xCod[i];
-			xCod[i] = yCod[i];
-			yCod[i] = tempCod;
+			for(int i=0;i<xCod.length;i++)
+			{
+				xCod[i] = xCod[0];
+				yCod[i] = yCod[0]+i;
+			}
+		}
+		else if(verNo == 3)
+		{
+			for(int i=0;i<xCod.length;i++)
+			{
+				xCod[i] = xCod[i]-i;
+				yCod[i] = yCod[0];
+			}
+		}
+		else if(verNo == 4)
+		{
+			for(int i=0;i<xCod.length;i++)
+			{
+				xCod[i] = xCod[0];
+				yCod[i] = yCod[0]-i;
+			}
+		}
+	}
+	public void changeVersionClock(int verNo)
+	{
+		super.changeVersion(verNo);
+
+		if(verNo == 1)
+		{	
+			for(int i=0;i<xCod.length;i++)
+			{
+				xCod[i] = xCod[0]+i;
+				yCod[i] = yCod[0];
+			}
+		}
+		else if(verNo == 2)
+		{
+			for(int i=0;i<xCod.length;i++)
+			{
+				xCod[i] = xCod[0];
+				yCod[i] = yCod[0]+i;
+			}
+		}
+		else if(verNo == 3)
+		{
+			for(int i=0;i<xCod.length;i++)
+			{
+				xCod[i] = xCod[0]-i;
+				yCod[i] = yCod[0];
+			}
+		}
+		else if(verNo == 4)
+		{
+			for(int i=0;i<xCod.length;i++)
+			{
+				xCod[i] = xCod[0];
+				yCod[i] = yCod[0]-i;
+			}
 		}
 	}
 }
 
-class Square extends Version
-{
+class Square extends Version {
 	Square()
 	{
+		Random r = new Random();
+		int ranNo = r.nextInt((25 - 5) + 1) + 5;
 		xCod = new int[] {1,1,2,2,};
-		yCod = new int[] {1,2,1,2};
+		yCod = new int[] {ranNo,ranNo+1,ranNo,ranNo+1};
 	}
-	public void changeVersion(int verNo)
+	public void changeVersionAnticlock(int verNo)
+	{
+		super.changeVersion(verNo);
+	}
+	public void changeVersionClock(int verNo)
 	{
 		super.changeVersion(verNo);
 	}
 }
 
-class T extends Version
-{
-	T()
+class Tshape extends Version {
+	Tshape()
 	{
+		Random r = new Random();
+		int ranNo = r.nextInt((25 - 5) + 1) + 5;
 		xCod = new int[] {1,1,1,2,};
-		yCod = new int[] {1,2,3,2};
+		yCod = new int[] {ranNo,ranNo+1,ranNo+2,ranNo+1};
 	}
-	public void changeVersion(int verNo)
+
+	public void changeVersionAnticlock(int verNo)
 	{
 		super.changeVersion(verNo);
+
+		if(verNo == 1)
+		{
+			xCod[1] = xCod[1]-1;
+			xCod[2] = xCod[2]-2;
+			yCod[0] = yCod[0]-1;
+			yCod[2] = yCod[2]+1;
+			yCod[3] = yCod[3]+1;
+		}
+		if(verNo == 2)
+		{
+			xCod[1] = xCod[1]+1;
+			xCod[2] = xCod[2]+2;
+			yCod[0] = yCod[0]+1;
+			yCod[2] = yCod[2]-1;
+			yCod[3] = yCod[3]+1;
+		}
+		if(verNo == 3)
+		{
+			xCod[0] = xCod[0]+1;
+			xCod[2] = xCod[2]-1;
+			xCod[3] = xCod[3]-1;
+			yCod[0] = yCod[0]-1;
+			yCod[2] = yCod[2]+1;
+			yCod[3] = yCod[3]-1;
+		}
+		if(verNo == 4)
+		{
+			xCod[0] = xCod[0]-1;
+			xCod[2] = xCod[2]+1;
+			xCod[3] = xCod[3]+1;
+			yCod[0] = yCod[0]+1;
+			yCod[2] = yCod[2]-1;
+			yCod[3] = yCod[3]-1;
+		}
+	}
+
+	public void changeVersionClock(int verNo)
+	{
+		super.changeVersion(verNo);
+
+		if(verNo == 1)
+		{
+			xCod[1] = xCod[1]-1;
+			xCod[2] = xCod[2]-2;
+			yCod[0] = yCod[0]-1;
+			yCod[2] = yCod[2]+1;
+			yCod[3] = yCod[3]-1;
+		}
+		if(verNo == 2)
+		{
+			xCod[0] = xCod[0]-1;
+			xCod[2] = xCod[2]+1;
+			xCod[3] = xCod[3]+1;
+			yCod[0] = yCod[0]+1;
+			yCod[2] = yCod[2]-1;
+			yCod[3] = yCod[3]+1;
+		}
+		if(verNo == 3)
+		{
+			xCod[0] = xCod[0]+1;
+			xCod[2] = xCod[2]-1;
+			xCod[3] = xCod[3]-1;
+			yCod[0] = yCod[0]-1;
+			yCod[2] = yCod[2]+1;
+			yCod[3] = yCod[3]+1;
+		}
+		if(verNo == 4)
+		{
+			xCod[1] = xCod[1]+1;
+			xCod[2] = xCod[2]+2;
+			yCod[0] = yCod[0]+1;
+			yCod[2] = yCod[2]-1;
+			yCod[3] = yCod[3]-1;
+		}
 	}
 }
 
@@ -84,11 +233,13 @@ public class TETRIS
 	{
 		Line l1 = new Line();
 		//Square l1 = new Square();
-		//T l1 = new T();
+		//Tshape l1 = new Tshape();
 
 		clearBoard();
 		drawShape(l1);
 		displayBoard();
+
+		int versionNo = l1.getVersion();
 
 		Scanner obj = new Scanner(System.in);
 		char c = obj.next().charAt(0);
@@ -97,23 +248,54 @@ public class TETRIS
 			if(c == 'd')
 			{
 				clearScreen();
-				l1.changeVersion(2);
-				
+				if(versionNo == 1)
+				{
+					l1.changeVersionAnticlock(2);
+				}
+				else if(versionNo == 2)
+				{
+					l1.changeVersionAnticlock(3);
+				}
+				else if(versionNo == 3)
+				{
+					l1.changeVersionAnticlock(4);
+				}
+				else if(versionNo == 4) 
+				{
+					l1.changeVersionAnticlock(1);	
+				}
+
 			}
 			else if(c == 'a')
 			{
 				clearScreen();
-				//l1.changeVersion(2);
+				if(versionNo == 1)
+				{
+					l1.changeVersionClock(4);
+				}
+				else if(versionNo == 2)
+				{
+					l1.changeVersionClock(1);
+				}
+				else if(versionNo == 3)
+				{
+					l1.changeVersionClock(2);
+				}
+				else if(versionNo == 4)
+				{
+					l1.changeVersionClock(3);
+				}
 			}
 			clearBoard();
 			drawShape(l1);
 			displayBoard();
+			versionNo = l1.getVersion();
 			c = obj.next().charAt(0);
+
 		}
 	}
 
-	public static void clearBoard()
-	{
+	public static void clearBoard() {
 		for(int i=0;i<board.length;i++)
 		{
 			for(int j=0;j<board.length;j++)
@@ -135,16 +317,14 @@ public class TETRIS
 		System.out.print("\033[H\033[2J"); 
 	}
 
-	public static void drawShape(Version v1)
-	{
+	public static void drawShape(Version v1) {
 		for(int i=0;i<v1.xCod.length;i++)
 		{
 			board[v1.xCod[i]][v1.yCod[i]] = '#';
 		}
 	}
 
-	public static void displayBoard()
-	{
+	public static void displayBoard() {
 		for(int i=0;i<30;i++)
 		{
 			for(int j=0;j<30;j++)
