@@ -139,7 +139,7 @@ class Tshape extends Version {
 	{
 		Random r = new Random();
 		int ranNo = r.nextInt((25 - 5) + 1) + 5;
-		xCod = new int[] {1,1,1,2,};
+		xCod = new int[] {1,1,1,2};
 		yCod = new int[] {ranNo,ranNo+1,ranNo+2,ranNo+1};
 	}
 
@@ -224,6 +224,141 @@ class Tshape extends Version {
 	}
 }
 
+class Lshape extends Version {
+	Lshape()
+	{
+		Random r = new Random();
+		int ranNo = r.nextInt((25 - 5) + 1) + 5;
+		xCod = new int[] {1,2,3,3};
+		yCod = new int[] {ranNo,ranNo,ranNo,ranNo+1};
+	}
+
+	public void changeVersionAnticlock(int verNo)
+	{
+		super.changeVersion(verNo);
+
+		if(verNo == 1)
+		{
+			xCod[1] = xCod[1]+1;
+			xCod[2] = xCod[2]+2;
+			xCod[3] = xCod[3]+1;
+			yCod[0] = yCod[0]-2;
+			yCod[1] = yCod[1]-1;
+			yCod[3] = yCod[3]+1;
+		}
+		else if(verNo == 2)
+		{
+			xCod[0] = xCod[0]+2;
+			xCod[1] = xCod[1]+1;
+			xCod[3] = xCod[3]-1;
+			yCod[1] = yCod[1]+1;
+			yCod[2] = yCod[2]+2;
+			yCod[3] = yCod[3]+1;
+		}
+		else if(verNo == 3)
+		{
+			xCod[1] = xCod[1]-1;
+			xCod[2] = xCod[2]-2;
+			xCod[3] = xCod[3]-1;
+			yCod[0] = yCod[0]+2;
+			yCod[1] = yCod[1]+1;
+			yCod[3] = yCod[3]-1;
+		}
+		else if(verNo == 4)
+		{
+			xCod[0] = xCod[0]-2;
+			xCod[1] = xCod[1]-1;
+			xCod[3] = xCod[3]+1;
+			yCod[1] = yCod[1]-1;
+			yCod[2] = yCod[2]-2;
+			yCod[3] = yCod[3]-1;
+		}
+	}
+
+	public void changeVersionClock(int verNo)
+	{
+		super.changeVersion(verNo);
+
+		if(verNo == 1)
+		{
+			xCod[0] = xCod[0]-2;
+			xCod[1] = xCod[1]-1;
+			xCod[3] = xCod[3]+1;
+			yCod[1] = yCod[1]-1;
+			yCod[2] = yCod[2]-2;
+			yCod[3] = yCod[3]-1;
+		}
+		else if(verNo == 2)
+		{
+			xCod[1] = xCod[1]+1;
+			xCod[2] = xCod[2]+2;
+			xCod[3] = xCod[3]+1;
+			yCod[0] = yCod[0]-2;
+			yCod[1] = yCod[1]-1;
+			yCod[3] = yCod[3]+1;
+		}
+		else if(verNo == 3)
+		{
+			xCod[0] = xCod[0]+2;
+			xCod[1] = xCod[1]+1;
+			xCod[3] = xCod[3]-1;
+			yCod[1] = yCod[1]+1;
+			yCod[2] = yCod[2]+2;
+			yCod[3] = yCod[3]+1;
+		}
+		else if(verNo == 4)
+		{
+			xCod[1] = xCod[1]-1;
+			xCod[2] = xCod[2]-2;
+			xCod[3] = xCod[3]-1;
+			yCod[0] = yCod[0]+2;
+			yCod[1] = yCod[1]+1;
+			yCod[3] = yCod[3]-1;
+		}
+
+	}
+}
+
+class LTshape extends Version {
+	LTshape()
+	{
+		Random r = new Random();
+		int ranNo = r.nextInt((25 - 5) + 1) + 5;
+		xCod = new int[] {1,2,2,3};
+		yCod = new int[] {ranNo,ranNo,ranNo+1,ranNo+1};
+	}
+
+	public void changeVersionAnticlock(int verNo)
+	{
+		super.changeVersion(verNo);
+
+		if(verNo == 1 || verNo == 3)
+		{
+			xCod[1] = xCod[1]+1;
+			xCod[3] = xCod[3]+1;
+			yCod[0] = yCod[0]-2;
+			yCod[1] = yCod[1]-1;
+			yCod[3] = yCod[3]+1;
+		}
+		else if(verNo == 2 || verNo == 4)
+		{
+			xCod[1] = xCod[1]-1;
+			xCod[3] = xCod[3]-1;
+			yCod[0] = yCod[0]+2;
+			yCod[1] = yCod[1]+1;
+			yCod[3] = yCod[3]-1;
+		}
+	}
+
+	public void changeVersionClock(int verNo)
+	{
+		super.changeVersion(verNo);
+		changeVersionAnticlock(verNo);
+
+	}
+}
+
+
 public class TETRIS
 {
 
@@ -231,9 +366,11 @@ public class TETRIS
 
 	public static void main(String args[]) 
 	{
-		Line l1 = new Line();
+		//Line l1 = new Line();
 		//Square l1 = new Square();
 		//Tshape l1 = new Tshape();
+		//Lshape l1 = new Lshape();
+		LTshape l1 = new LTshape();
 
 		clearBoard();
 		drawShape(l1);
