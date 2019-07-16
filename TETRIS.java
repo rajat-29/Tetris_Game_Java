@@ -114,6 +114,27 @@ class Line extends Version {
 			}
 		}
 	}
+
+	// public void changeDirection()
+	// {
+	// 		for(int i=0;i<4;i++)
+	// 		{
+	// 			if(yCod[3]!=28)
+	// 			{
+	// 				yCod[i] = yCod[i]+1;
+	// 				xCod[i] = xCod[i]+1;
+	// 			}
+	// 			else if(yCod[0]!=27)
+	// 			{
+	// 				System.out.println("gigig");
+	// 				break;
+	// 			}
+	// 			else
+	// 				break;
+	// 		}
+	// 		System.out.println("x=" + xCod[0]);
+	// 		System.out.println("y =" + yCod[0]);
+	// }
 }
 
 class Square extends Version {
@@ -349,7 +370,6 @@ class LTshape extends Version {
 			yCod[3] = yCod[3]-1;
 		}
 	}
-
 	public void changeVersionClock(int verNo)
 	{
 		super.changeVersion(verNo);
@@ -357,7 +377,6 @@ class LTshape extends Version {
 
 	}
 }
-
 
 public class TETRIS
 {
@@ -367,10 +386,10 @@ public class TETRIS
 	public static void main(String args[]) 
 	{
 		//Line l1 = new Line();
-		//Square l1 = new Square();
+		Square l1 = new Square();
 		//Tshape l1 = new Tshape();
 		//Lshape l1 = new Lshape();
-		LTshape l1 = new LTshape();
+		//LTshape l1 = new LTshape();
 
 		clearBoard();
 		drawShape(l1);
@@ -423,6 +442,17 @@ public class TETRIS
 					l1.changeVersionClock(3);
 				}
 			}
+			else if(c == 'r')
+			{
+				moveRight(l1);
+				moveDown(l1);
+			}
+			else if(c == 'l')
+			{
+				moveLeft(l1);
+				moveDown(l1);
+			}
+
 			clearBoard();
 			drawShape(l1);
 			displayBoard();
@@ -430,6 +460,30 @@ public class TETRIS
 			c = obj.next().charAt(0);
 
 		}
+	}
+
+	public static void moveRight(Version v1)
+	{
+		if(v1.yCod[0]==28 || v1.yCod[1]==28 || v1.yCod[2]==28 || v1.yCod[3]==28)
+			return ;
+		for(int i=0;i<v1.xCod.length;i++)
+			v1.yCod[i]++;
+	}
+
+	public static void moveLeft(Version v1)
+	{
+		if(v1.yCod[0]==1 || v1.yCod[1]==1 || v1.yCod[2]==1 || v1.yCod[3]==1)
+			return ;
+		for(int i=0;i<v1.xCod.length;i++)
+			v1.yCod[i]--;
+	}
+
+	public static void moveDown(Version v1)
+	{
+		if(v1.xCod[0]==28 || v1.xCod[1]==28 || v1.xCod[2]==28 || v1.xCod[3]==28)
+			return ;
+		for(int i=0;i<v1.xCod.length;i++)
+			v1.xCod[i]++;
 	}
 
 	public static void clearBoard() {
