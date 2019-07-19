@@ -25,6 +25,23 @@ class Version extends Points
 		this.versionNo = versionNo;
 	}
 
+	public void changeVersionAnticlock(int versionNo)
+	{
+		this.versionNo = versionNo;
+	}
+
+	public void changeVersionClock(int versionNo)
+	{
+		this.versionNo = versionNo;
+	}
+
+	public boolean checkDown(char board[][]) {
+        return false;
+    }
+
+    public void generateVer() {
+    }
+
 	public int getVersion()
 	{
 		return versionNo;
@@ -40,11 +57,31 @@ class Line extends Version {
 		yCod = new int[] {ranNo,ranNo,ranNo,ranNo};
 	}
 
-	public void changeVersionAnticlock(int verNo)
+	public void generateVer() 
 	{
-		super.changeVersion(verNo);
+        Random r = new Random();
+		int ranNo = r.nextInt((25 - 5) + 1) + 5;
+		xCod = new int[] {4,5,6,7};
+		yCod = new int[] {ranNo,ranNo,ranNo,ranNo};
+    }
 
-		if(verNo == 1)
+    public boolean checkDown(char board[][]) {
+        if(versionNo == 1 && (board[xCod[3] + 1][yCod[3]] == '#')) {
+            return true;
+        } else if(versionNo == 2 && ( board[xCod[0] + 1][yCod[0]] == '#' 
+        || board[xCod[1] + 1][yCod[1]] == '#' || 
+        board[xCod[2] + 1][yCod[2]] == '#' 
+        || board[xCod[3] + 1][yCod[3]] == '#')) {
+            return true;
+        }
+        return false;
+    }
+
+	public void changeVersionAnticlock(int versionNo)
+	{
+		super.changeVersion(versionNo);
+
+		if(versionNo == 1)
 		{	
 			for(int i=0;i<xCod.length;i++)
 			{
@@ -52,7 +89,7 @@ class Line extends Version {
 				yCod[i] = yCod[0];
 			}
 		}
-		else if(verNo == 2)
+		else if(versionNo == 2)
 		{
 			for(int i=0;i<xCod.length;i++)
 			{
@@ -60,7 +97,7 @@ class Line extends Version {
 				yCod[i] = yCod[0]+i;
 			}
 		}
-		else if(verNo == 3)
+		else if(versionNo == 3)
 		{
 			for(int i=0;i<xCod.length;i++)
 			{
@@ -68,7 +105,7 @@ class Line extends Version {
 				yCod[i] = yCod[0];
 			}
 		}
-		else if(verNo == 4)
+		else if(versionNo == 4)
 		{
 			for(int i=0;i<xCod.length;i++)
 			{
@@ -77,11 +114,11 @@ class Line extends Version {
 			}
 		}
 	}
-	public void changeVersionClock(int verNo)
+	public void changeVersionClock(int versionNo)
 	{
-		super.changeVersion(verNo);
+		super.changeVersion(versionNo);
 
-		if(verNo == 1)
+		if(versionNo == 1)
 		{	
 			for(int i=0;i<xCod.length;i++)
 			{
@@ -89,7 +126,7 @@ class Line extends Version {
 				yCod[i] = yCod[0];
 			}
 		}
-		else if(verNo == 2)
+		else if(versionNo == 2)
 		{
 			for(int i=0;i<xCod.length;i++)
 			{
@@ -97,7 +134,7 @@ class Line extends Version {
 				yCod[i] = yCod[0]+i;
 			}
 		}
-		else if(verNo == 3)
+		else if(versionNo == 3)
 		{
 			for(int i=0;i<xCod.length;i++)
 			{
@@ -105,7 +142,7 @@ class Line extends Version {
 				yCod[i] = yCod[0];
 			}
 		}
-		else if(verNo == 4)
+		else if(versionNo == 4)
 		{
 			for(int i=0;i<xCod.length;i++)
 			{
@@ -140,18 +177,34 @@ class Line extends Version {
 class Square extends Version {
 	Square()
 	{
-		Random r = new Random();
+		 Random r = new Random();
 		int ranNo = r.nextInt((25 - 5) + 1) + 5;
 		xCod = new int[] {1,1,2,2,};
 		yCod = new int[] {ranNo,ranNo+1,ranNo,ranNo+1};
 	}
-	public void changeVersionAnticlock(int verNo)
+
+	public void generateVer() 
 	{
-		super.changeVersion(verNo);
+       Random r = new Random();
+		int ranNo = r.nextInt((25 - 5) + 1) + 5;
+		xCod = new int[] {1,1,2,2,};
+		yCod = new int[] {ranNo,ranNo+1,ranNo,ranNo+1};
+    }
+
+      public boolean checkDown(char board[][]) {
+        if(board[xCod[2] + 1][yCod[2]] == '#' || board[xCod[3] + 1][yCod[3]] == '#') {
+            return true;
+        } 
+        return false;
+    }
+
+	public void changeVersionAnticlock(int versionNo)
+	{
+		super.changeVersion(versionNo);
 	}
-	public void changeVersionClock(int verNo)
+	public void changeVersionClock(int versionNo)
 	{
-		super.changeVersion(verNo);
+		super.changeVersion(versionNo);
 	}
 }
 
@@ -164,11 +217,35 @@ class Tshape extends Version {
 		yCod = new int[] {ranNo,ranNo+1,ranNo+2,ranNo+1};
 	}
 
-	public void changeVersionAnticlock(int verNo)
+	public void generateVer() 
 	{
-		super.changeVersion(verNo);
+       Random r = new Random();
+		int ranNo = r.nextInt((25 - 5) + 1) + 5;
+		xCod = new int[] {1,1,1,2};
+		yCod = new int[] {ranNo,ranNo+1,ranNo+2,ranNo+1};
+    }
 
-		if(verNo == 1)
+    public boolean checkDown(char board[][]) {
+        if(versionNo == 1 && (board[xCod[0] + 1][yCod[0]] == '#' 
+        || board[xCod[2] + 1][yCod[2]] == '#' || board[xCod[3] + 1][yCod[3]] == '#')) {
+            return true;
+        } else if(versionNo == 2 && ( board[xCod[2] + 1][yCod[2]] == '#' 
+        || board[xCod[3] + 1][yCod[3]] == '#')) {
+            return true;
+        } else if(versionNo == 3 && (board[xCod[0] + 1][yCod[0]] == '#' 
+        || board[xCod[1] + 1][yCod[1]] == '#' || board[xCod[2] + 1][yCod[2]] == '#')) {
+            return true;
+        } else if(versionNo == 4 && (board[xCod[0] + 1][yCod[0]] == '#' || board[xCod[3] + 1][yCod[3]] == '#')){
+            return true;
+        }
+        return false;
+    }
+
+	public void changeVersionAnticlock(int versionNo)
+	{
+		super.changeVersion(versionNo);
+
+		if(versionNo == 1)
 		{
 			xCod[1] = xCod[1]-1;
 			xCod[2] = xCod[2]-2;
@@ -176,7 +253,7 @@ class Tshape extends Version {
 			yCod[2] = yCod[2]+1;
 			yCod[3] = yCod[3]+1;
 		}
-		if(verNo == 2)
+		if(versionNo == 2)
 		{
 			xCod[1] = xCod[1]+1;
 			xCod[2] = xCod[2]+2;
@@ -184,7 +261,7 @@ class Tshape extends Version {
 			yCod[2] = yCod[2]-1;
 			yCod[3] = yCod[3]+1;
 		}
-		if(verNo == 3)
+		if(versionNo == 3)
 		{
 			xCod[0] = xCod[0]+1;
 			xCod[2] = xCod[2]-1;
@@ -193,7 +270,7 @@ class Tshape extends Version {
 			yCod[2] = yCod[2]+1;
 			yCod[3] = yCod[3]-1;
 		}
-		if(verNo == 4)
+		if(versionNo == 4)
 		{
 			xCod[0] = xCod[0]-1;
 			xCod[2] = xCod[2]+1;
@@ -204,11 +281,11 @@ class Tshape extends Version {
 		}
 	}
 
-	public void changeVersionClock(int verNo)
+	public void changeVersionClock(int versionNo)
 	{
-		super.changeVersion(verNo);
+		super.changeVersion(versionNo);
 
-		if(verNo == 1)
+		if(versionNo == 1)
 		{
 			xCod[1] = xCod[1]-1;
 			xCod[2] = xCod[2]-2;
@@ -216,7 +293,7 @@ class Tshape extends Version {
 			yCod[2] = yCod[2]+1;
 			yCod[3] = yCod[3]-1;
 		}
-		if(verNo == 2)
+		if(versionNo == 2)
 		{
 			xCod[0] = xCod[0]-1;
 			xCod[2] = xCod[2]+1;
@@ -225,7 +302,7 @@ class Tshape extends Version {
 			yCod[2] = yCod[2]-1;
 			yCod[3] = yCod[3]+1;
 		}
-		if(verNo == 3)
+		if(versionNo == 3)
 		{
 			xCod[0] = xCod[0]+1;
 			xCod[2] = xCod[2]-1;
@@ -234,7 +311,7 @@ class Tshape extends Version {
 			yCod[2] = yCod[2]+1;
 			yCod[3] = yCod[3]+1;
 		}
-		if(verNo == 4)
+		if(versionNo == 4)
 		{
 			xCod[1] = xCod[1]+1;
 			xCod[2] = xCod[2]+2;
@@ -254,239 +331,293 @@ class Lshape extends Version {
 		yCod = new int[] {ranNo,ranNo,ranNo,ranNo+1};
 	}
 
-	public void changeVersionAnticlock(int verNo)
+	public void generateVer() 
 	{
-		super.changeVersion(verNo);
-
-		if(verNo == 1)
-		{
-			xCod[1] = xCod[1]+1;
-			xCod[2] = xCod[2]+2;
-			xCod[3] = xCod[3]+1;
-			yCod[0] = yCod[0]-2;
-			yCod[1] = yCod[1]-1;
-			yCod[3] = yCod[3]+1;
-		}
-		else if(verNo == 2)
-		{
-			xCod[0] = xCod[0]+2;
-			xCod[1] = xCod[1]+1;
-			xCod[3] = xCod[3]-1;
-			yCod[1] = yCod[1]+1;
-			yCod[2] = yCod[2]+2;
-			yCod[3] = yCod[3]+1;
-		}
-		else if(verNo == 3)
-		{
-			xCod[1] = xCod[1]-1;
-			xCod[2] = xCod[2]-2;
-			xCod[3] = xCod[3]-1;
-			yCod[0] = yCod[0]+2;
-			yCod[1] = yCod[1]+1;
-			yCod[3] = yCod[3]-1;
-		}
-		else if(verNo == 4)
-		{
-			xCod[0] = xCod[0]-2;
-			xCod[1] = xCod[1]-1;
-			xCod[3] = xCod[3]+1;
-			yCod[1] = yCod[1]-1;
-			yCod[2] = yCod[2]-2;
-			yCod[3] = yCod[3]-1;
-		}
-	}
-
-	public void changeVersionClock(int verNo)
-	{
-		super.changeVersion(verNo);
-
-		if(verNo == 1)
-		{
-			xCod[0] = xCod[0]-2;
-			xCod[1] = xCod[1]-1;
-			xCod[3] = xCod[3]+1;
-			yCod[1] = yCod[1]-1;
-			yCod[2] = yCod[2]-2;
-			yCod[3] = yCod[3]-1;
-		}
-		else if(verNo == 2)
-		{
-			xCod[1] = xCod[1]+1;
-			xCod[2] = xCod[2]+2;
-			xCod[3] = xCod[3]+1;
-			yCod[0] = yCod[0]-2;
-			yCod[1] = yCod[1]-1;
-			yCod[3] = yCod[3]+1;
-		}
-		else if(verNo == 3)
-		{
-			xCod[0] = xCod[0]+2;
-			xCod[1] = xCod[1]+1;
-			xCod[3] = xCod[3]-1;
-			yCod[1] = yCod[1]+1;
-			yCod[2] = yCod[2]+2;
-			yCod[3] = yCod[3]+1;
-		}
-		else if(verNo == 4)
-		{
-			xCod[1] = xCod[1]-1;
-			xCod[2] = xCod[2]-2;
-			xCod[3] = xCod[3]-1;
-			yCod[0] = yCod[0]+2;
-			yCod[1] = yCod[1]+1;
-			yCod[3] = yCod[3]-1;
-		}
-
-	}
-}
-
-class LTshape extends Version {
-	LTshape()
-	{
-		Random r = new Random();
+       Random r = new Random();
 		int ranNo = r.nextInt((25 - 5) + 1) + 5;
-		xCod = new int[] {1,2,2,3};
-		yCod = new int[] {ranNo,ranNo,ranNo+1,ranNo+1};
-	}
+		xCod = new int[] {1,2,3,3};
+		yCod = new int[] {ranNo,ranNo,ranNo,ranNo+1};
+    }
 
-	public void changeVersionAnticlock(int verNo)
+    public boolean checkDown(char board[][]) {
+        if(versionNo == 1 && (board[xCod[2] + 1][yCod[2]] == '#' || board[xCod[3] + 1][yCod[3]] == '#')) {
+            return true;
+        } else if(versionNo == 2 && ( board[xCod[0] + 1][yCod[0]] == '#' || board[xCod[1] + 1][yCod[1]] == '#' 
+        || board[xCod[2] + 1][yCod[2]] == '#')) {
+            return true;
+        } else if(versionNo == 3 && (board[xCod[0] + 1][yCod[0]] == '#' || board[xCod[3] + 1][yCod[3]] == '#')) {
+            return true;
+        } else if(versionNo == 4 && (board[xCod[0] + 1][yCod[0]] == '#' || board[xCod[1] + 1][yCod[1]] == '#' || board[xCod[2] + 1][yCod[2]] == '#' )){
+            return true;
+        }
+        return false;
+    }
+
+	public void changeVersionAnticlock(int versionNo)
 	{
-		super.changeVersion(verNo);
+		super.changeVersion(versionNo);
 
-		if(verNo == 1 || verNo == 3)
+		if(versionNo == 1)
 		{
 			xCod[1] = xCod[1]+1;
+			xCod[2] = xCod[2]+2;
 			xCod[3] = xCod[3]+1;
 			yCod[0] = yCod[0]-2;
 			yCod[1] = yCod[1]-1;
 			yCod[3] = yCod[3]+1;
 		}
-		else if(verNo == 2 || verNo == 4)
+		else if(versionNo == 2)
+		{
+			xCod[0] = xCod[0]+2;
+			xCod[1] = xCod[1]+1;
+			xCod[3] = xCod[3]-1;
+			yCod[1] = yCod[1]+1;
+			yCod[2] = yCod[2]+2;
+			yCod[3] = yCod[3]+1;
+		}
+		else if(versionNo == 3)
 		{
 			xCod[1] = xCod[1]-1;
+			xCod[2] = xCod[2]-2;
 			xCod[3] = xCod[3]-1;
 			yCod[0] = yCod[0]+2;
 			yCod[1] = yCod[1]+1;
 			yCod[3] = yCod[3]-1;
 		}
+		else if(versionNo == 4)
+		{
+			xCod[0] = xCod[0]-2;
+			xCod[1] = xCod[1]-1;
+			xCod[3] = xCod[3]+1;
+			yCod[1] = yCod[1]-1;
+			yCod[2] = yCod[2]-2;
+			yCod[3] = yCod[3]-1;
+		}
 	}
-	public void changeVersionClock(int verNo)
+
+	public void changeVersionClock(int versionNo)
 	{
-		super.changeVersion(verNo);
-		changeVersionAnticlock(verNo);
+		super.changeVersion(versionNo);
+
+		if(versionNo == 1)
+		{
+			xCod[0] = xCod[0]-2;
+			xCod[1] = xCod[1]-1;
+			xCod[3] = xCod[3]+1;
+			yCod[1] = yCod[1]-1;
+			yCod[2] = yCod[2]-2;
+			yCod[3] = yCod[3]-1;
+		}
+		else if(versionNo == 2)
+		{
+			xCod[1] = xCod[1]+1;
+			xCod[2] = xCod[2]+2;
+			xCod[3] = xCod[3]+1;
+			yCod[0] = yCod[0]-2;
+			yCod[1] = yCod[1]-1;
+			yCod[3] = yCod[3]+1;
+		}
+		else if(versionNo == 3)
+		{
+			xCod[0] = xCod[0]+2;
+			xCod[1] = xCod[1]+1;
+			xCod[3] = xCod[3]-1;
+			yCod[1] = yCod[1]+1;
+			yCod[2] = yCod[2]+2;
+			yCod[3] = yCod[3]+1;
+		}
+		else if(versionNo == 4)
+		{
+			xCod[1] = xCod[1]-1;
+			xCod[2] = xCod[2]-2;
+			xCod[3] = xCod[3]-1;
+			yCod[0] = yCod[0]+2;
+			yCod[1] = yCod[1]+1;
+			yCod[3] = yCod[3]-1;
+		}
 
 	}
 }
+
+// class LTshape extends Version {
+// 	LTshape()
+// 	{
+// 		Random r = new Random();
+// 		int ranNo = r.nextInt((25 - 5) + 1) + 5;
+// 		xCod = new int[] {1,2,2,3};
+// 		yCod = new int[] {ranNo,ranNo,ranNo+1,ranNo+1};
+// 	}
+
+// 	public void generateVer() 
+// 	{
+//        Random r = new Random();
+// 		int ranNo = r.nextInt((25 - 5) + 1) + 5;
+// 		xCod = new int[] {1,2,2,3};
+// 		yCod = new int[] {ranNo,ranNo,ranNo+1,ranNo+1};
+//     }
+
+// 	public void changeVersionAnticlock(int versionNo)
+// 	{
+// 		super.changeVersion(versionNo);
+
+// 		if(versionNo == 1 || versionNo == 3)
+// 		{
+// 			xCod[1] = xCod[1]+1;
+// 			xCod[3] = xCod[3]+1;
+// 			yCod[0] = yCod[0]-2;
+// 			yCod[1] = yCod[1]-1;
+// 			yCod[3] = yCod[3]+1;
+// 		}
+// 		else if(versionNo == 2 || versionNo == 4)
+// 		{
+// 			xCod[1] = xCod[1]-1;
+// 			xCod[3] = xCod[3]-1;
+// 			yCod[0] = yCod[0]+2;
+// 			yCod[1] = yCod[1]+1;
+// 			yCod[3] = yCod[3]-1;
+// 		}
+// 	}
+// 	public void changeVersionClock(int versionNo)
+// 	{
+// 		super.changeVersion(versionNo);
+// 		changeVersionAnticlock(versionNo);
+
+// 	}
+// }
 
 public class TETRIS
 {
 
 	public static char board[][] = new char[30][30];
+	public static int hashNo[] = new int[30];
+	 static int currentShapeNo = 1;
+	 static int currentShapeVersion = 1;
 
 	public static void main(String args[]) 
 	{
-		//Line l1 = new Line();
-		Square l1 = new Square();
-		//Tshape l1 = new Tshape();
-		//Lshape l1 = new Lshape();
-		//LTshape l1 = new LTshape();
-
-		clearBoard();
-		drawShape(l1);
-		displayBoard();
-
-		int versionNo = l1.getVersion();
+		Line line = new Line();
+		Square square = new Square();
+		Tshape t = new Tshape();
+		Lshape l = new Lshape();
+		//LTshape lt = new LTshape();
+		Version currentShape = new Version();
 
 		Scanner obj = new Scanner(System.in);
-		char c = obj.next().charAt(0);
-		while(c!='q')
+
+		char c;
+
+		initBoard();
+
+		while(true)
 		{
-			if(c == 'd')
-			{
-				clearScreen();
-				if(versionNo == 1)
-				{
-					l1.changeVersionAnticlock(2);
-				}
-				else if(versionNo == 2)
-				{
-					l1.changeVersionAnticlock(3);
-				}
-				else if(versionNo == 3)
-				{
-					l1.changeVersionAnticlock(4);
-				}
-				else if(versionNo == 4) 
-				{
-					l1.changeVersionAnticlock(1);	
-				}
 
-			}
-			else if(c == 'a')
-			{
-				clearScreen();
-				if(versionNo == 1)
-				{
-					l1.changeVersionClock(4);
-				}
-				else if(versionNo == 2)
-				{
-					l1.changeVersionClock(1);
-				}
-				else if(versionNo == 3)
-				{
-					l1.changeVersionClock(2);
-				}
-				else if(versionNo == 4)
-				{
-					l1.changeVersionClock(3);
-				}
-			}
-			else if(c == 'r')
-			{
-				moveRight(l1);
-				moveDown(l1);
-			}
-			else if(c == 'l')
-			{
-				moveLeft(l1);
-				moveDown(l1);
-			}
-
-			clearBoard();
-			drawShape(l1);
+			currentShape = currentShapeNo == 1 ? line : currentShapeNo == 2 ? square : currentShapeNo == 3 ? t : l;
+			int versionNo = currentShape.getVersion();
+			System.out.println(currentShapeNo);
+			drawShape(currentShape);
 			displayBoard();
-			versionNo = l1.getVersion();
+
 			c = obj.next().charAt(0);
 
-		}
+			    if(c == 'd')
+				{
+					versionNo = versionNo > 4 ? 1 : ++versionNo;
+				
+					clearFromBoard(currentShape);
+					currentShape.changeVersionAnticlock(versionNo);
+				}
+				else if(c == 'a')
+				{
+					versionNo = versionNo > 1 ? --versionNo : 4;
+				
+					clearFromBoard(currentShape);
+					currentShape.changeVersionAnticlock(versionNo);
+				}
+
+				 if(c == 'r')
+				{
+					moveRight(currentShape);
+					moveDown(currentShape);
+				}
+				else if(c == 'l')
+				{
+					moveLeft(currentShape);
+					moveDown(currentShape);
+				}
+				else if(c == 'b')
+				{
+					//System.out.println("ji");
+					moveDown(currentShape);
+				}
+	}
 	}
 
-	public static void moveRight(Version v1)
-	{
-		if(v1.yCod[0]==28 || v1.yCod[1]==28 || v1.yCod[2]==28 || v1.yCod[3]==28)
-			return ;
-		for(int i=0;i<v1.xCod.length;i++)
-			v1.yCod[i]++;
-	}
+	public static void moveLeft(Version V) {
+        if(V.yCod[0] == 1 || V.yCod[1] == 1 || V.yCod[2] == 1 || V.yCod[3] == 1)
+            return;
+        for(int i = 0;i<V.xCod.length;i++) {
+            board[V.xCod[i]][V.yCod[i]] = ' ';
+            V.yCod[i]--;
+        }
+    }
+    public static void moveRight(Version V) {
+        if(V.yCod[0] == (board.length - 2) || V.yCod[1] == (board.length - 2) || V.yCod[2] == (board.length - 2) || V.yCod[3] == (board.length - 2))
+            return;
+        for(int i = 0;i<V.xCod.length;i++) {
+            board[V.xCod[i]][V.yCod[i]] = ' ';
+            V.yCod[i]++;
+        }
+    }
 
-	public static void moveLeft(Version v1)
-	{
-		if(v1.yCod[0]==1 || v1.yCod[1]==1 || v1.yCod[2]==1 || v1.yCod[3]==1)
-			return ;
-		for(int i=0;i<v1.xCod.length;i++)
-			v1.yCod[i]--;
-	}
+	public static void moveDown(Version V) {
+        if(V.xCod[0] == (board.length - 2) || V.xCod[1] == (board.length - 2) || 
+        V.xCod[2] == (board.length - 2) || V.xCod[3] == (board.length - 2) || V.checkDown(board)) {
+        	  checkRemoveLine(V);
+            V.generateVer();
 
-	public static void moveDown(Version v1)
-	{
-		if(v1.xCod[0]==28 || v1.xCod[1]==28 || v1.xCod[2]==28 || v1.xCod[3]==28)
-			return ;
-		for(int i=0;i<v1.xCod.length;i++)
-			v1.xCod[i]++;
-	}
+            currentShapeNo = (int)(Math.random() * 5) + 1;
+            System.out.println("jnkj" + currentShapeNo);
+            
+            return;
+        }
+        for(int i = 0;i<V.xCod.length;i++) {
+            board[V.xCod[i]][V.yCod[i]] = ' ';
+            V.xCod[i]++;
+        }
+    }
 
-	public static void clearBoard() {
+    public static void clearFromBoard(Version V) {
+
+    	System.out.println("rajat");
+
+    	for(int i=0;i<V.xCod.length;i++)
+    	{
+    		board[V.xCod[i]][V.yCod[i]] = ' ';
+    	}
+    }
+
+    public static void checkRemoveLine(Version V) {
+
+    	
+
+    	for(int i=0;i<4;i++)
+    	{
+    		hashNo[30-1-V.xCod[i]]++;
+    	}
+    	for(int i=29;i>0;i--)
+    	{
+    		if(hashNo[i]>28)
+    		{
+    			for(int j=board.length-1-i;j>0;j--)
+    			{
+    				board[j] = board[j-1];
+    			}
+    			board[0] = new char[30];
+    		}
+    	}
+    }
+
+	public static void initBoard() {
 		for(int i=0;i<board.length;i++)
 		{
 			for(int j=0;j<board.length;j++)
