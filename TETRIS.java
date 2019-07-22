@@ -152,26 +152,6 @@ class Line extends Version {
 		}
 	}
 
-	// public void changeDirection()
-	// {
-	// 		for(int i=0;i<4;i++)
-	// 		{
-	// 			if(yCod[3]!=28)
-	// 			{
-	// 				yCod[i] = yCod[i]+1;
-	// 				xCod[i] = xCod[i]+1;
-	// 			}
-	// 			else if(yCod[0]!=27)
-	// 			{
-	// 				System.out.println("gigig");
-	// 				break;
-	// 			}
-	// 			else
-	// 				break;
-	// 		}
-	// 		System.out.println("x=" + xCod[0]);
-	// 		System.out.println("y =" + yCod[0]);
-	// }
 }
 
 class Square extends Version {
@@ -328,7 +308,7 @@ class Lshape extends Version {
 		Random r = new Random();
 		int ranNo = r.nextInt((25 - 5) + 1) + 5;
 		xCod = new int[] {1,2,3,3};
-		yCod = new int[] {ranNo,ranNo,ranNo,ranNo+1};
+		yCod = new int[] {10,10,10,11};
 	}
 
 	public void generateVer() 
@@ -336,7 +316,7 @@ class Lshape extends Version {
        Random r = new Random();
 		int ranNo = r.nextInt((25 - 5) + 1) + 5;
 		xCod = new int[] {1,2,3,3};
-		yCod = new int[] {ranNo,ranNo,ranNo,ranNo+1};
+		yCod = new int[] {10,10,10,11};
     }
 
     public boolean checkDown(char board[][]) {
@@ -401,15 +381,16 @@ class Lshape extends Version {
 
 		if(versionNo == 1)
 		{
-			xCod[0] = xCod[0]-2;
-			xCod[1] = xCod[1]-1;
-			xCod[3] = xCod[3]+1;
-			yCod[1] = yCod[1]-1;
-			yCod[2] = yCod[2]-2;
-			yCod[3] = yCod[3]-1;
+			xCod[0] = xCod[0]+2;
+			xCod[1] = xCod[1]+1;
+			xCod[3] = xCod[3]-1;
+			yCod[1] = yCod[1]+1;
+			yCod[2] = yCod[2]+2;
+			yCod[3] = yCod[3]+1;
 		}
 		else if(versionNo == 2)
 		{
+			System.out.println("2");
 			xCod[1] = xCod[1]+1;
 			xCod[2] = xCod[2]+2;
 			xCod[3] = xCod[3]+1;
@@ -419,15 +400,19 @@ class Lshape extends Version {
 		}
 		else if(versionNo == 3)
 		{
-			xCod[0] = xCod[0]+2;
-			xCod[1] = xCod[1]+1;
-			xCod[3] = xCod[3]-1;
+			System.out.println("3");
+			xCod[0] = xCod[0]-2;
+			xCod[1] = xCod[1]-1;
+			xCod[3] = xCod[3]+1;
 			yCod[1] = yCod[1]+1;
-			yCod[2] = yCod[2]+2;
-			yCod[3] = yCod[3]+1;
+			yCod[2] = yCod[2]-2;
+			yCod[3] = yCod[3]-1;
+			for(int i=0;i<4;i++)
+			System.out.println("" + yCod[i]);
 		}
 		else if(versionNo == 4)
 		{
+			
 			xCod[1] = xCod[1]-1;
 			xCod[2] = xCod[2]-2;
 			xCod[3] = xCod[3]-1;
@@ -490,6 +475,8 @@ public class TETRIS
 
 	public static char board[][] = new char[30][30];
 	public static int hashNo[] = new int[30];
+	public static Stack<String> undoStack = new Stack<String>();
+	public static Stack<String> redoStack = new Stack<String>();
 	 static int currentShapeNo = 1;
 	 static int currentShapeVersion = 1;
 
@@ -513,7 +500,6 @@ public class TETRIS
 
 			currentShape = currentShapeNo == 1 ? line : currentShapeNo == 2 ? square : currentShapeNo == 3 ? t : l;
 			int versionNo = currentShape.getVersion();
-			System.out.println(currentShapeNo);
 			drawShape(currentShape);
 			displayBoard();
 
@@ -521,35 +507,73 @@ public class TETRIS
 
 			    if(c == 'd')
 				{
-					versionNo = versionNo > 4 ? 1 : ++versionNo;
-				
-					clearFromBoard(currentShape);
-					currentShape.changeVersionAnticlock(versionNo);
+					moveAnti(versionNo,currentShape);
 				}
 				else if(c == 'a')
 				{
-					versionNo = versionNo > 1 ? --versionNo : 4;
-				
-					clearFromBoard(currentShape);
-					currentShape.changeVersionAnticlock(versionNo);
+					moveClock(versionNo,currentShape);
 				}
 
 				 if(c == 'r')
 				{
 					moveRight(currentShape);
 					moveDown(currentShape);
+					undoStack.push("r");
 				}
 				else if(c == 'l')
 				{
 					moveLeft(currentShape);
 					moveDown(currentShape);
+					undoStack.push("l");
 				}
 				else if(c == 'b')
 				{
-					//System.out.println("ji");
 					moveDown(currentShape);
+					undoStack.push("b");
 				}
+				else if(c == 'u')
+				{
+					if(undoStack.isEmpty())
+					{}
+					else
+					{
+						undoStep(versionNo,undoStack.peek(),currentShape);
+						redoStack.push(undoStack.pop());
+					}
+				}
+				// else if(dir == 'i') 
+				// {
+    //             	if(redoStack.isEmpty())
+    //             	{}
+    //             	if(redoStack.peek().equals("l")) 
+    //             	{ 
+    //                 	redoStep("r", currentShape);
+    //                 }
+    //          	    else if(redoStack.peek().equals("r")) 
+    //          	    { 
+    //                 	redoStep("l", currentShape);
+    //             	}
+    //             		undoStack.push(redoStack.pop());
+    //         	}
+		}
 	}
+
+	public static void moveAnti(int vNO, Version V)
+	{
+		vNO = vNO > 4 ? 1 : ++vNO;
+				
+		clearFromBoard(V);
+		V.changeVersionAnticlock(vNO);
+		undoStack.push("d");
+	}
+
+	public static void moveClock(int vNO, Version V)
+	{
+		vNO = vNO > 1 ? --vNO : 4;
+				
+		clearFromBoard(V);
+		V.changeVersionClock(vNO);
+		undoStack.push("a");
 	}
 
 	public static void moveLeft(Version V) {
@@ -576,8 +600,6 @@ public class TETRIS
             V.generateVer();
 
             currentShapeNo = (int)(Math.random() * 5) + 1;
-            System.out.println("jnkj" + currentShapeNo);
-            
             return;
         }
         for(int i = 0;i<V.xCod.length;i++) {
@@ -586,10 +608,32 @@ public class TETRIS
         }
     }
 
-    public static void clearFromBoard(Version V) {
+    public static void undoStep(int vers,String undo, Version V)
+	{
+		if(undo.equals("b"))
+		{
+			for(int i=0;i<V.xCod.length;i++)
+			{
+				board[V.xCod[i]][V.yCod[i]] = ' ';
+				V.xCod[i]--;
+			}
+		}
+		else if(undo.equals("l"))
+		{
+			moveRight(V);
+		}
+		else if(undo.equals("r"))
+		{
+			moveLeft(V);
+		}
+		else if(undo.equals("d"))
+		{
+			moveClock(vers,V);
+		}
+	}
 
-    	System.out.println("rajat");
-
+	public static void clearFromBoard(Version V) 
+	{
     	for(int i=0;i<V.xCod.length;i++)
     	{
     		board[V.xCod[i]][V.yCod[i]] = ' ';
