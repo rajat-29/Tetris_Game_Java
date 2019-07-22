@@ -508,10 +508,12 @@ public class TETRIS
 			    if(c == 'd')
 				{
 					moveAnti(versionNo,currentShape);
+					undoStack.push("a");
 				}
 				else if(c == 'a')
 				{
 					moveClock(versionNo,currentShape);
+					undoStack.push("d");
 				}
 
 				 if(c == 'r')
@@ -534,27 +536,22 @@ public class TETRIS
 				else if(c == 'u')
 				{
 					if(undoStack.isEmpty())
-					{}
-					else
 					{
+						continue;
+					}
 						undoStep(versionNo,undoStack.peek(),currentShape);
 						redoStack.push(undoStack.pop());
-					}
+					
 				}
-				// else if(dir == 'i') 
-				// {
-    //             	if(redoStack.isEmpty())
-    //             	{}
-    //             	if(redoStack.peek().equals("l")) 
-    //             	{ 
-    //                 	redoStep("r", currentShape);
-    //                 }
-    //          	    else if(redoStack.peek().equals("r")) 
-    //          	    { 
-    //                 	redoStep("l", currentShape);
-    //             	}
-    //             		undoStack.push(redoStack.pop());
-    //         	}
+				else if(c == 'i') 
+				{
+                	if(redoStack.isEmpty())
+                	{
+                		continue;
+                	}
+                	redoStep(versionNo,redoStack.peek(),currentShape);
+                	undoStack.push(redoStack.pop());
+                }
 		}
 	}
 
@@ -629,6 +626,26 @@ public class TETRIS
 		else if(undo.equals("d"))
 		{
 			moveClock(vers,V);
+		}
+	}
+
+	public static void redoStep(int vers,String undo, Version V)
+	{
+		if(undo.equals("b"))
+		{
+			moveDown(V);
+		}
+		else if(undo.equals("l"))
+		{
+			moveLeft(V);
+		}
+		else if(undo.equals("r"))
+		{
+			moveRight(V);
+		}
+		else if(undo.equals("d"))
+		{
+			moveAnti(vers,V);
 		}
 	}
 
