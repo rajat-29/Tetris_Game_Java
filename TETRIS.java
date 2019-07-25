@@ -39,6 +39,14 @@ class Version extends Points
         return false;
     }
 
+    public boolean checkLeft(char board[][]) {
+		return false;
+	}
+
+	public boolean checkRight(char board[][]) {
+		return false;
+	}
+
     public void generateVer() {
     }
 
@@ -152,6 +160,24 @@ class Line extends Version {
 		}
 	}
 
+	public boolean checkLeft(char board[][]) {
+        if(versionNo == 1 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[1]][yCod[1] - 1] == '#' || board[xCod[2]][yCod[2] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 2 && board[xCod[0]][yCod[0] - 1] == '#') {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkRight(char board[][]) {
+        if(versionNo == 1 && (board[xCod[0]][yCod[0] + 1] == '#' || board[xCod[1]][yCod[1] + 1] == '#' || board[xCod[2]][yCod[2] + 1] == '#' || board[xCod[3]][yCod[3] + 1] == '#')) {
+            return true;
+        } else if(versionNo == 2 && board[xCod[3]][yCod[3] - 1] == '#') {
+            return true;
+        }
+        return false;
+    }
+
+
 }
 
 class Square extends Version {
@@ -186,6 +212,18 @@ class Square extends Version {
 	{
 		super.changeVersion(versionNo);
 	}
+
+	public boolean checkLeft(char board[][]) {
+        if(board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[2]][yCod[2] - 1] == '#') 
+            return true;
+        return false;
+	}
+	
+	public boolean checkRight(char board[][]) {
+        if(board[xCod[1]][yCod[1] + 1] == '#' || board[xCod[3]][yCod[3] + 1] == '#')
+            return true;
+        return false;
+    }
 }
 
 class Tshape extends Version {
@@ -216,6 +254,32 @@ class Tshape extends Version {
         || board[xCod[1] + 1][yCod[1]] == '#' || board[xCod[2] + 1][yCod[2]] == '#')) {
             return true;
         } else if(versionNo == 4 && (board[xCod[0] + 1][yCod[0]] == '#' || board[xCod[3] + 1][yCod[3]] == '#')){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkLeft(char board[][]) {
+        if(versionNo == 1 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 2 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[2]][yCod[2] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 3 && (board[xCod[2]][yCod[2]- 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 4 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[1]][yCod[1] - 1] == '#' || board[xCod[2]][yCod[2] - 1] == '#')) {
+            return true;
+        }
+        return false;
+	}
+	
+    public boolean checkRight(char board[][]) {
+        if(versionNo == 1 && (board[xCod[2]][yCod[2] + 1] == '#' || board[xCod[3]][yCod[3] + 1] == '#')) {
+            return true;
+        } else if(versionNo == 2 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[1]][yCod[1] - 1] == '#' || board[xCod[2]][yCod[2] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 3 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 4 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[2]][yCod[2] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
             return true;
         }
         return false;
@@ -328,6 +392,31 @@ class Lshape extends Version {
         } else if(versionNo == 3 && (board[xCod[0] + 1][yCod[0]] == '#' || board[xCod[3] + 1][yCod[3]] == '#')) {
             return true;
         } else if(versionNo == 4 && (board[xCod[0] + 1][yCod[0]] == '#' || board[xCod[1] + 1][yCod[1]] == '#' || board[xCod[2] + 1][yCod[2]] == '#' )){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkLeft(char board[][]) {
+        if(versionNo == 1 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[1]][yCod[1] - 1] == '#' || board[xCod[2]][yCod[2] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 2 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 3 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[1]][yCod[1] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 4 && (board[xCod[2]][yCod[2] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkRight(char board[][]) {
+        if(versionNo == 1 && (board[xCod[0]][yCod[0] + 1] == '#' || board[xCod[1]][yCod[1] + 1] == '#' || board[xCod[3]][yCod[3] + 1] == '#')) {
+            return true;
+        } else if(versionNo == 2 && (board[xCod[0]][yCod[0] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
+            return true;
+        } else if(versionNo == 3 && (board[xCod[0]][yCod[0] + 1] == '#' || board[xCod[1]][yCod[1] + 1] == '#' || board[xCod[2]][yCod[2] + 1] == '#')) {
+            return true;
+        } else if(versionNo == 4 && (board[xCod[2]][yCod[2] - 1] == '#' || board[xCod[3]][yCod[3] - 1] == '#')) {
             return true;
         }
         return false;
@@ -574,7 +663,7 @@ public class TETRIS
 	}
 
 	public static void moveLeft(Version V) {
-        if(V.yCod[0] == 1 || V.yCod[1] == 1 || V.yCod[2] == 1 || V.yCod[3] == 1)
+        if(V.yCod[0] == 1 || V.yCod[1] == 1 || V.yCod[2] == 1 || V.yCod[3] == 1 || V.checkLeft(board))
             return;
         for(int i = 0;i<V.xCod.length;i++) {
             board[V.xCod[i]][V.yCod[i]] = ' ';
@@ -582,7 +671,7 @@ public class TETRIS
         }
     }
     public static void moveRight(Version V) {
-        if(V.yCod[0] == (board.length - 2) || V.yCod[1] == (board.length - 2) || V.yCod[2] == (board.length - 2) || V.yCod[3] == (board.length - 2))
+        if(V.yCod[0] == (board.length - 2) || V.yCod[1] == (board.length - 2) || V.yCod[2] == (board.length - 2) || V.yCod[3] == (board.length - 2) || V.checkRight(board))
             return;
         for(int i = 0;i<V.xCod.length;i++) {
             board[V.xCod[i]][V.yCod[i]] = ' ';
